@@ -84,6 +84,7 @@ func munge(json []byte) ([]byte, error) {
 		"testsuiteName": m.ValueOrEmptyForPathString("testsuite.-name"),
 		"skippedTests": m.ValueOrEmptyForPathString("testsuite.-skipped"),
 		"tests": m.ValueOrEmptyForPathString("testsuite.-tests"),
+		"time": m.ValueOrEmptyForPathString("testsuite.-time"),
 		"timestamp": time.Now().In(utc).Format("2006-01-02T15:04:05Z"),
 		// TODO Add the TestCases
 	}
