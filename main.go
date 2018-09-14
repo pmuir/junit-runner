@@ -73,6 +73,8 @@ func munge(json []byte) ([]byte, error) {
 		return nil, err
 	}
 	// Kibana is quite restrictive in the way it accepts JSON, so just rebuild the JSON entirely!
+
+	utc, _ := time.LoadLocation("UTC")
 	data := map[string]interface{} {
 		"org": os.Getenv("ORG"),
 		"appName": os.Getenv("APP_NAME"),
@@ -82,7 +84,7 @@ func munge(json []byte) ([]byte, error) {
 		"testsuiteName": m.ValueOrEmptyForPathString("testsuite.-name"),
 		"skippedTests": m.ValueOrEmptyForPathString("testsuite.-skipped"),
 		"tests": m.ValueOrEmptyForPathString("testsuite.-tests"),
-		"timestamp": time.Now().Format("2006-01-02T03:04:05Z"),
+		"timestamp": time.Now().In(utc).Format("2006-01-02T15:04:05Z"),
 		// TODO Add the TestCases
 	}
 	fmt.Printf("%s", data)
